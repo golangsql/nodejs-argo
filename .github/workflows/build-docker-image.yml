@@ -11,12 +11,14 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 全局权限（推荐）
+permissions:
+  contents: read
+  packages: write   # 关键：允许推送到 GHCR
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout repository
@@ -39,7 +41,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/nodejs:latest
+            ghcr.io/${{ github.repository_owner }}/nodesss:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=HTTP Server
